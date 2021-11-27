@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1069354247051",
+    "project_id": "towghana-38f76",
+    "storage_bucket": "towghana-38f76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069354247051:android:dffc5893018e3f07fd058e",
+        "android_client_info": {
+          "package_name": "com.example.towghana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069354247051-m76epfc3r28r70s2bjkcq5e2sa071lkf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.towghana",
+            "certificate_hash": "aed2ff4d76a523306b4dfb951fe6bc83760a120a"
+          }
+        },
+        {
+          "client_id": "1069354247051-0vd402aagjfukhq3nkkbee2upho9mdc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCnEgeIPKCRYxOUiBxJw4cqdaBhAHF7sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069354247051-0vd402aagjfukhq3nkkbee2upho9mdc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
