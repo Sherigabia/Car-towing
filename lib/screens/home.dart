@@ -2,7 +2,10 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:towghana/screens/TowingMap.dart';
+import 'package:towghana/screens/salvage.dart';
 import 'package:towghana/screens/tow_my_car.dart';
+
 //import 'package:towghana/model/user_model.dart';
 //import 'package:towghana/screens/login.dart';
 //import 'package:towghana/screens/maps.dart';
@@ -16,144 +19,69 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-final List<String> imgList = [
-  'assets/images/tow2.png',
-  'assets/images/customer_service.png',
-  'assets/images/logo.png',
-  'assets/images/tow_ghana.png',
-  'assets/images/online_road.png',
-];
-
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.6),
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.6), BlendMode.darken),
+              image: AssetImage("assets/images/logo_blur.jpg"),
+            )),
         child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.count(crossAxisCount: 2, children: <Widget>[
-        Card(
-          shadowColor: Colors.black87,
-          margin: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => TowCar()));
-            },
-            splashColor: Colors.blueGrey,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.agriculture, size: 70.0, color: Colors.amber),
-                  Text(
-                    "Tow My Car",
-                    style: TextStyle(
-                      fontSize: 17.0,
-                    ),
-                  )
-                ],
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.count(crossAxisCount: 2, children: <Widget>[
+            Card(
+              shadowColor: Colors.black87,
+              margin: EdgeInsets.all(8),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => TowMap()));
+                },
+                splashColor: Colors.blueGrey,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.agriculture, size: 70.0, color: Colors.amber),
+                      Text(
+                        "TOW MY CAR",
+                        style: TextStyle(
+                            fontSize: 17.0, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {},
-            splashColor: Colors.blueGrey,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.car_repair, size: 70.0, color: Colors.green),
-                  Text(
-                    "Salvage My Car",
-                    style: TextStyle(fontSize: 17.0),
-                  )
-                ],
+            Card(
+              margin: EdgeInsets.all(8),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SalvageScreen()));
+                },
+                splashColor: Colors.blueGrey,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.car_repair, size: 70.0, color: Colors.green),
+                      Text(
+                        "SALVAGE MY CAR",
+                        style: TextStyle(
+                            fontSize: 17.0, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {},
-            splashColor: Colors.blueGrey,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.person_pin, size: 70.0, color: Colors.blue),
-                  Text(
-                    "New Icon",
-                    style: TextStyle(fontSize: 17.0),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {},
-            splashColor: Colors.blueGrey,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.person_pin, size: 70.0, color: Colors.blue),
-                  Text(
-                    "New Icon 2",
-                    style: TextStyle(fontSize: 17.0),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {},
-            splashColor: Colors.blueGrey,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.person_pin, size: 70.0, color: Colors.blue),
-                  Text(
-                    "Contact Us",
-                    style: TextStyle(fontSize: 17.0),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        Card(
-          margin: EdgeInsets.all(8),
-          child: InkWell(
-            onTap: () {},
-            splashColor: Colors.blueGrey,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.library_books,
-                      size: 70.0, color: Colors.deepOrange),
-                  Text(
-                    "Log",
-                    style: TextStyle(fontSize: 17.0),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ]),
-    ));
+          ]),
+        ));
   }
 }
 

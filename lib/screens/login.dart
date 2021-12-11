@@ -1,8 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:towghana/screens/home.dart';
+import 'package:http/http.dart' as http;
+import 'package:towghana/model/user.dart';
+import 'package:towghana/screens/mainPage.dart';
 import 'package:towghana/screens/registration.dart';
+
+late User user;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool processing = false;
+
   //form key
   final _formKey = GlobalKey<FormState>();
 
@@ -19,9 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
-  //firebase
+  //get User Data
 
-  final _auth = FirebaseAuth.instance;
+  getUserData() {}
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))));
 
-    //loading indicator
-    bool isLoading = true;
-
     final loginButton = Material(
         elevation: 5,
-        color: Colors.redAccent,
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(30),
         child: MaterialButton(
             onPressed: () {
@@ -90,12 +94,17 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
             minWidth: MediaQuery.of(context).size.width,
-            child: Text("Login",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold))));
+            child: processing == false
+                ? Text("Login",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold))
+                : CircularProgressIndicator(
+                    backgroundColor: Colors.greenAccent,
+                    semanticsLabel: 'Loading ..',
+                  )));
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -138,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             child: Text("Register",
                                 style: TextStyle(
-                                    color: Colors.redAccent,
+                                    color: Colors.blueAccent,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15)),
                           )
@@ -156,14 +165,46 @@ class _LoginScreenState extends State<LoginScreen> {
 //Login Function
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => HomeScreen()))
-              })
-          .catchError((e) => {Fluttertoast.showToast(msg: e!.message)});
+      setState(() {
+        processing = true;
+      });
+      //  var url = Uri.parse('https://dladjiro.com/tg/api/user/login');
+      var url = Uri.parse('https://dladjiro.com/tg/api/user/login');
+
+      var data = {
+        'email': emailController.text,
+        'password': passwordController.text,
+      };
+      var response = await http.post(url, body: data);
+      var result = jsonDecode(response.body);
+      print("DATA: $result");
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+
+        var userData = responseData['user'];
+
+        User authUser = User.fromJson(userData);
+
+        setState(() {
+          processing = false;
+          user = authUser;
+        });
+
+        print(user);
+        Fluttertoast.showToast(
+            msg: 'Login Successful', toastLength: Toast.LENGTH_SHORT);
+
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MainPage()));
+      } else {
+        setState(() {
+          processing = false;
+        });
+
+        Fluttertoast.showToast(
+            msg: 'Login Failed!', toastLength: Toast.LENGTH_SHORT);
+      }
     }
   }
 }

@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Tow Ghana Requires Access to Your Location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Tow Ghana Requires Access to Your Location</string>
 </dict>
 </plist>

@@ -1,38 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:towghana/screens/TowingMap.dart';
 import 'package:towghana/screens/customer_support.dart';
+import 'package:towghana/screens/login.dart';
+import 'package:towghana/screens/mainPage.dart';
 import 'package:towghana/screens/road_assitance.dart';
+import 'package:towghana/screens/salvage.dart';
 import 'package:towghana/screens/tow_my_car.dart';
 
 import 'package:towghana/screens/user.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationDrawerWidget extends StatefulWidget {
+  @override
+  State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
+}
+
+class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   final padding = EdgeInsets.symmetric(horizontal: 20);
 
   @override
   Widget build(BuildContext context) {
-    final name = 'Username';
-    final email = 'username@gmail.com';
+    final name = "${user.lastname} ${user.firstname}";
+    final email = '${user.email}';
     final urlImage = 'assets/images/logo.jpg';
     return Drawer(
         child: Material(
             color: Colors.blue,
             child: ListView(
               children: <Widget>[
-                buildHeader(
-                    urlImage: urlImage,
-                    name: name,
-                    email: email,
-                    onClicked: () =>
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => UserPage(
-                                  name: name,
-                                  urlImage: urlImage,
-                                )))),
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(
+                      "assets/images/person.png",
+                    ),
+                    radius: 50,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  children: [
+                    Text("${user.lastname} ${user.firstname}",
+                        style: TextStyle(fontSize: 17, color: Colors.white)),
+                    Text("${user.email}",
+                        style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontSize: 17,
+                            color: Colors.white)),
+                  ],
+                ),
+                // buildHeader(
+                //     urlImage: urlImage,
+                //     name: name,
+                //     email: email,
+                //     onClicked: () =>
+                //         Navigator.of(context).push(MaterialPageRoute(
+                //             builder: (context) => UserPage(
+                //                   name: name,
+                //                   urlImage: urlImage,
+                //                 )
+                //                 )
+                //                 )
+                //                 ),
                 Container(
                     padding: padding,
                     child: Column(
                       children: [
-                        const SizedBox(height: 12),
                         const SizedBox(
                           height: 12,
                         ),
@@ -41,28 +77,23 @@ class NavigationDrawerWidget extends StatelessWidget {
                           height: 12,
                         ),
                         buildMenuItem(
-                          text: 'Home Page',
-                          icon: Icons.house_outlined,
+                          text: 'HOME PAGE',
+                          icon: Icons.house,
                           onClicked: () => selectedItem(context, 0),
                         ),
                         const SizedBox(height: 16),
                         buildMenuItem(
-                          text: 'Tow My Car',
-                          icon: Icons.car_repair_outlined,
+                          text: 'TOW CAR',
+                          icon: Icons.car_repair,
                           onClicked: () => selectedItem(context, 1),
                         ),
                         const SizedBox(height: 16),
                         buildMenuItem(
-                          text: 'Customer Service',
-                          icon: Icons.headphones_outlined,
+                          text: 'SALVAGE CAR',
+                          icon: Icons.agriculture,
                           onClicked: () => selectedItem(context, 2),
                         ),
                         const SizedBox(height: 16),
-                        buildMenuItem(
-                          text: 'RoadSide Assistance',
-                          icon: Icons.airline_seat_recline_normal_rounded,
-                          onClicked: () => selectedItem(context, 3),
-                        ),
                       ],
                     ))
               ],
@@ -123,13 +154,6 @@ class NavigationDrawerWidget extends StatelessWidget {
                   ),
                   Spacer(),
                   SizedBox(width: 10),
-                  CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Color.fromRGBO(30, 60, 168, 1),
-                      child: Icon(
-                        Icons.settings,
-                        color: Colors.white,
-                      ))
                 ],
               )));
 
@@ -156,15 +180,15 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => TowCar()));
+            .push(MaterialPageRoute(builder: (context) => MainPage()));
         break;
       case 1:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => CustomerSupport()));
+            .push(MaterialPageRoute(builder: (context) => TowMap()));
         break;
       case 2:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => RoadAssistance()));
+            .push(MaterialPageRoute(builder: (context) => SalvageScreen()));
         break;
     }
   }

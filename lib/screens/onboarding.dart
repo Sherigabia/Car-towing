@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:towghana/screens/login.dart';
 import 'package:towghana/screens/mainPage.dart';
 import 'package:towghana/widgets/animated_indicator.dart';
 
 const blue = Color(0xFF4781ff);
-const KTitleStyle = TextStyle(
-    fontSize: 30, color: Color(0xFF01002f), fontWeight: FontWeight.bold);
+const KTitleStyle =
+    TextStyle(fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold);
 const KSubtitleStyle = TextStyle(
   fontSize: 22,
   color: Color(0xFF88869f),
@@ -36,24 +37,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           controller: pageController,
           children: [
             Slide(
-              hero: Image.asset("assets/images/tow_ghana.png"),
-              title: "Road Side Assistance",
+              hero: Lottie.asset("assets/images/car-rush.json"),
+              title: "TOW MY CAR",
               subtitle:
                   "Is your car stuck by the roadside? Do not worry, we provide road side assistance to get your vehicle back in no time",
               onNext: nextPage,
             ),
             Slide(
-                hero: Image.asset("assets/images/customer_service.png"),
-                title: "On Demand Car Towing",
+                hero: Lottie.asset("assets/images/car-lottie.json"),
+                title: "CAR TOWING SERVICE",
                 subtitle: "We provide on demand car towing services",
                 onNext: nextPage),
             Slide(
-                hero: Image.asset("assets/images/tow2.png"),
-                title: "Vehicle Service",
-                subtitle: "We provide vehicle services",
+                hero: Lottie.asset("assets/images/support.json"),
+                title: "CUSTOMER SERVICE",
+                subtitle:
+                    "We provide excellent customer support. Feel free to contact us",
                 onNext: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MainPage()));
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 }),
           ],
         ))));
