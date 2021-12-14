@@ -8,7 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:location/location.dart' as loc;
+
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -316,7 +316,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                     style: TextStyle(color: Colors.red),
                   )
                 : Stepper(
-                    controlsBuilder: (context, {onStepContinue, onStepCancel}) {
+                    controlsBuilder: (context, ControlsDetails) {
                       return SizedBox();
                     },
                     steps: [

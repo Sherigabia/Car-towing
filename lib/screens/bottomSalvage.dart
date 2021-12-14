@@ -8,22 +8,22 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:location/location.dart' as loc;
+
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:towghana/screens/login.dart';
 
-class SalvageScreen extends StatefulWidget {
-  const SalvageScreen({Key? key}) : super(key: key);
+class BottomSalvage extends StatefulWidget {
+  const BottomSalvage({Key? key}) : super(key: key);
 
   @override
-  _SalvageScreenState createState() => _SalvageScreenState();
+  _BottomSalvageState createState() => _BottomSalvageState();
 }
 
 String address = '';
 
-class _SalvageScreenState extends State<SalvageScreen>
+class _BottomSalvageState extends State<BottomSalvage>
     with SingleTickerProviderStateMixin {
   bool requestSent = false;
   static const double fabHeightClosed = 116.0;
@@ -153,12 +153,6 @@ class _SalvageScreenState extends State<SalvageScreen>
     final panelHeightOpen = MediaQuery.of(context).size.height * 0.5;
     final panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Salvage My Car",
-        ),
-        centerTitle: false,
-      ),
       body: Stack(alignment: Alignment.topCenter, children: [
         SlidingUpPanel(
           onPanelSlide: (position) => setState(() {

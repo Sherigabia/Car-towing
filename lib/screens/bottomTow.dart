@@ -8,22 +8,22 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:location/location.dart' as loc;
+
 import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:towghana/screens/login.dart';
 
-class SalvageScreen extends StatefulWidget {
-  const SalvageScreen({Key? key}) : super(key: key);
+class BottomTow extends StatefulWidget {
+  const BottomTow({Key? key}) : super(key: key);
 
   @override
-  _SalvageScreenState createState() => _SalvageScreenState();
+  _BottomTowState createState() => _BottomTowState();
 }
 
 String address = '';
 
-class _SalvageScreenState extends State<SalvageScreen>
+class _BottomTowState extends State<BottomTow>
     with SingleTickerProviderStateMixin {
   bool requestSent = false;
   static const double fabHeightClosed = 116.0;
@@ -153,12 +153,6 @@ class _SalvageScreenState extends State<SalvageScreen>
     final panelHeightOpen = MediaQuery.of(context).size.height * 0.5;
     final panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Salvage My Car",
-        ),
-        centerTitle: false,
-      ),
       body: Stack(alignment: Alignment.topCenter, children: [
         SlidingUpPanel(
           onPanelSlide: (position) => setState(() {
@@ -233,7 +227,7 @@ class _SalvageScreenState extends State<SalvageScreen>
                   controller.forward();
                 }),
                 Text(
-                  "Salvage Request Sent",
+                  "Tow Request Sent",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
@@ -323,7 +317,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                     steps: [
                       Step(
                           title: Text(
-                            "SALVAGE REQUEST SENT",
+                            "TOW REQUEST SENT",
                             style: TextStyle(color: Colors.green[900]),
                           ),
                           content: Column(children: [
@@ -360,7 +354,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                                   color: Colors.black)),
                           content: Text(""),
                           subtitle: Text(
-                              "processing your request for a salvage car service",
+                              "processing your request for a towing service",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black)),

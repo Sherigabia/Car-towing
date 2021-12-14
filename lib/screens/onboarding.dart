@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           children: [
             Slide(
               hero: Lottie.asset("assets/images/car-rush.json"),
-              title: "TOW MY CAR",
+              title: "SALVAGE MY CAR",
               subtitle:
                   "Is your car stuck by the roadside? Do not worry, we provide road side assistance to get your vehicle back in no time",
               onNext: nextPage,
@@ -54,8 +54,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 subtitle:
                     "We provide excellent customer support. Feel free to contact us",
                 onNext: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (route) => false);
                 }),
           ],
         ))));
