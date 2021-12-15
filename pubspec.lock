@@ -36,20 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  card_swiper:
-    dependency: "direct main"
-    description:
-      name: card_swiper
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
-  carousel_slider:
-    dependency: "direct main"
-    description:
-      name: carousel_slider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
   characters:
     dependency: transitive
     description:
@@ -113,20 +99,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  curved_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: curved_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -209,13 +181,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
-  flutter_polyline_points:
-    dependency: "direct main"
-    description:
-      name: flutter_polyline_points
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter_spinkit:
     dependency: "direct main"
     description:

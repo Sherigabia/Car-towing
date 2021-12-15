@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity),
       home: AnimatedSplashScreen(
         splash: Image.asset("assets/images/logo.jpeg"),
-        nextScreen: OnboardingScreen(),
+        nextScreen: LoginScreen(),
         splashTransition: SplashTransition.decoratedBoxTransition,
         backgroundColor: Colors.white,
         duration: 3000,

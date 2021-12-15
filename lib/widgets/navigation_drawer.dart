@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:towghana/screens/TowingMap.dart';
-import 'package:towghana/screens/customer_support.dart';
+
 import 'package:towghana/screens/login.dart';
 import 'package:towghana/screens/mainPage.dart';
-import 'package:towghana/screens/road_assitance.dart';
-import 'package:towghana/screens/salvage.dart';
-import 'package:towghana/screens/tow_my_car.dart';
 
-import 'package:towghana/screens/user.dart';
+import 'package:towghana/screens/salvage.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   @override

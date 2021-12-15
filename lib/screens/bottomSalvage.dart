@@ -100,7 +100,7 @@ class _BottomSalvageState extends State<BottomSalvage>
     try {
       final loc.LocationData _locationResult = await location.getLocation();
 
-      var url = Uri.parse('https://dladjiro.com/tg/api/user/addlocation');
+      var url = Uri.parse('https://towghana.com/tg/api/user/addlocation');
       //  var url = Uri.parse(
       //    'http://c540-154-160-11-165.ngrok.io/tow_ghana/api/user/addlocation');
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towghana/model/user.dart';
+//import 'package:towghana/screens/forgotPassword.dart';
 import 'package:towghana/screens/mainPage.dart';
 import 'package:towghana/screens/registration.dart';
 
@@ -145,14 +146,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) =>
                                           RegistrationScreen()));
                             },
-                            child: Text("Register",
+                            child: Text("Register Here",
                                 style: TextStyle(
                                     color: Colors.blueAccent,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15)),
                           )
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      //Forgot password field
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: <Widget>[
+                      //      GestureDetector(
+                      //       onTap: () {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => ForgotPassword()));
+                      //       },
+                      //       child: Text("Forgot Password ?",
+                      //           style: TextStyle(
+                      //               color: Colors.grey,
+                      //               fontWeight: FontWeight.w600,
+                      //               fontSize: 15)),
+                      //     )
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
@@ -168,8 +191,8 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         processing = true;
       });
-      //  var url = Uri.parse('https://dladjiro.com/tg/api/user/login');
-      var url = Uri.parse('https://dladjiro.com/tg/api/user/login');
+      //  var url = Uri.parse('https://towghana.com/tg/api/user/login');
+      var url = Uri.parse('https://towghana.com/tg/api/user/login');
 
       var data = {
         'email': emailController.text,
@@ -177,7 +200,6 @@ class _LoginScreenState extends State<LoginScreen> {
       };
       var response = await http.post(url, body: data);
       var result = jsonDecode(response.body);
-      print("DATA: $result");
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);

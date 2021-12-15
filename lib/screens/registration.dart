@@ -36,7 +36,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         processing = true;
       });
 
-      var url = Uri.parse('https://dladjiro.com/tg/api/user/register');
+      var url = Uri.parse('https://towghana.com/tg/api/user/register');
 
       var data = {
         "firstname": firstNameEditingController.text,

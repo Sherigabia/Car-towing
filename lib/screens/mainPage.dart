@@ -1,4 +1,3 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:towghana/screens/TowingMap.dart';
@@ -9,7 +8,6 @@ import 'package:towghana/screens/login.dart';
 import 'package:towghana/screens/salvage.dart';
 
 import 'package:towghana/screens/userProfile.dart';
-import 'package:towghana/screens/tow_my_car.dart';
 
 import 'package:towghana/widgets/navigation_drawer.dart';
 
@@ -57,7 +55,6 @@ class _MainPageState extends State<MainPage> {
           final snack = SnackBar(
               content: Text("Press Back Button again to Exit App"),
               duration: Duration(seconds: 2));
-
           ScaffoldMessenger.of(context).showSnackBar(snack);
           return false;
         } else {

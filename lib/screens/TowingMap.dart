@@ -22,13 +22,17 @@ class TowMap extends StatefulWidget {
 }
 
 String address = '';
+bool updateRequest = false;
 
 class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
   bool requestSent = false;
+  bool loading = false;
+
+  bool cancelRequest = true;
+
   static const double fabHeightClosed = 116.0;
   double fabHeight = fabHeightClosed;
   late AnimationController controller;
-  bool loading = false;
   late double latitude;
   late double longitude;
 
@@ -99,7 +103,7 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
     try {
       final loc.LocationData _locationResult = await location.getLocation();
 
-      var url = Uri.parse('https://dladjiro.com/tg/api/user/addlocation');
+      var url = Uri.parse('https://towghana.com/tg/api/user/addlocation');
       //  var url = Uri.parse(
       //    'http://c540-154-160-11-165.ngrok.io/tow_ghana/api/user/addlocation');
 
@@ -186,21 +190,24 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
                       newGoogleMapController = controller;
                       locatePosition();
                     }),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0)),
-                      onPressed: () {
-                        _getLocation();
-                        locatePosition();
-                        setState(() {
-                          loading = true;
-                        });
-                      },
-                      icon: Icon(Icons.location_on),
-                      label: Text("Make Request")),
-                ),
+                loading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: Colors.greenAccent,
+                      ))
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0)),
+                            onPressed: () {
+                              makeRequestDialog();
+                            },
+                            icon: Icon(Icons.location_on),
+                            label: updateRequest
+                                ? Text("Update Request")
+                                : Text("Make Request")),
+                      ),
               ],
             ),
           ),
@@ -216,6 +223,37 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
         ),
       ]),
     );
+  }
+
+  Future makeRequestDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+                title: Text(
+                  "Request Tow Service",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                content: Text("Do you want to request a towing service?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      _getLocation();
+                      locatePosition();
+                      setState(() {
+                        loading = true;
+                        updateRequest = true;
+                      });
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Text("YES"),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: Text("Cancel"))
+                ]));
   }
 
   void showDoneDialog() => showDialog(
@@ -312,7 +350,7 @@ class _PanelWidgetState extends State<PanelWidget> {
             ),
             address.isEmpty
                 ? Text(
-                    "Content not available",
+                    "No requests made",
                     style: TextStyle(color: Colors.red),
                   )
                 : Stepper(
@@ -323,7 +361,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                       Step(
                           title: Text(
                             "TOW REQUEST SENT",
-                            style: TextStyle(color: Colors.green[900]),
+                            style: TextStyle(color: Colors.green),
                           ),
                           content: Column(children: [
                             address.isEmpty
@@ -331,7 +369,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                                 : Row(
                                     children: [
                                       Icon(Icons.location_on,
-                                          color: Colors.blue),
+                                          color: Colors.green),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -340,7 +378,7 @@ class _PanelWidgetState extends State<PanelWidget> {
                                           "$address",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.green[900]),
+                                              color: Colors.green),
                                         ),
                                       ),
                                     ],
@@ -349,33 +387,20 @@ class _PanelWidgetState extends State<PanelWidget> {
                           subtitle: Text("Location",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green[900])),
+                                  color: Colors.green)),
                           isActive: true,
                           state: StepState.complete),
                       Step(
                           title: Text("PROCESSING REQUEST",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
+                                  color: Colors.green)),
                           content: Text(""),
                           subtitle: Text(
-                              "processing your request for a towing service",
+                              "Tow Ghana will get in touch with you shortly",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
-                          isActive: true,
-                          state: StepState.complete),
-                      Step(
-                          title: Text("TOW CAR DISPATCHED",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey)),
-                          content: Text(""),
-                          subtitle: Text(
-                              "A tow Car has been dispatched to your location",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey)),
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.green)),
                           isActive: true,
                           state: StepState.complete),
                     ],
