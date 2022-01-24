@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:towghana/model/user.dart';
-//import 'package:towghana/screens/forgotPassword.dart';
+import 'package:towghana/screens/forgotPassword.dart';
 import 'package:towghana/screens/mainPage.dart';
 import 'package:towghana/screens/registration.dart';
 
@@ -18,6 +20,68 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    //  _requestPermission();
+    requesEnableLocation();
+  }
+
+  // _requestPermission() async {
+  //   var status = await Permission.location.request();
+  //   if (status.isGranted) {
+  //     print('done');
+  //   } else if (status.isDenied) {
+  //     _requestPermission();
+  //   } else if (status.isPermanentlyDenied) {
+  //     openAppSettings();
+  //   }
+  // }
+
+  Future<bool> requesEnableLocation() async {
+    bool isShown = await Permission.contacts.shouldShowRequestRationale;
+    if (!isShown) {
+      showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+                  title: Text(
+                    "Enable Location Access",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  content: SingleChildScrollView(
+                      child: ListBody(children: [
+                    Text(
+                        "Tow Ghana App collects location information to help Towing Trucks locate broken down vehicles or accident cars that have requested for a Tow Truck."),
+                    Text(
+                      "Location service is required only when the app is in use",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    )
+                  ])),
+                  actions: [
+                    TextButton(
+                      onPressed: () async {
+                        var status = await Permission.location.request();
+                        if (!status.isGranted) {
+                          print('done');
+                          openAppSettings();
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Allow"),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          exit(0);
+                        },
+                        child: Text("Exit App"))
+                  ]));
+    }
+    return true;
+  }
+
+  // end of the code
   bool processing = false;
 
   //form key
@@ -157,25 +221,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      //Forgot password field
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: <Widget>[
-                      //      GestureDetector(
-                      //       onTap: () {
-                      //         Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //                 builder: (context) => ForgotPassword()));
-                      //       },
-                      //       child: Text("Forgot Password ?",
-                      //           style: TextStyle(
-                      //               color: Colors.grey,
-                      //               fontWeight: FontWeight.w600,
-                      //               fontSize: 15)),
-                      //     )
-                      //   ],
-                      // )
+                      //  Forgot password field
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ForgotPassword()));
+                            },
+                            child: Text("Forgot Password ?",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15)),
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -192,8 +256,8 @@ class _LoginScreenState extends State<LoginScreen> {
         processing = true;
       });
       //  var url = Uri.parse('https://towghana.com/tg/api/user/login');
-      var url = Uri.parse('https://towghana.com/tg/api/user/login');
-
+       var url = Uri.parse('https://towghana.com/tg/api/user/login'); // global URL
+      
       var data = {
         'email': emailController.text,
         'password': passwordController.text,

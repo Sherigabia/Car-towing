@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "1069354247051",
-    "project_id": "towghana-38f76",
-    "storage_bucket": "towghana-38f76.appspot.com"
+    "project_number": "367835836700",
+    "project_id": "towgh-bdf61",
+    "storage_bucket": "towgh-bdf61.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1069354247051:android:dffc5893018e3f07fd058e",
+        "mobilesdk_app_id": "1:367835836700:android:823bd5670a5835948b8ad9",
         "android_client_info": {
-          "package_name": "com.example.towghana"
+          "package_name": "com.towghapp.towghana"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1069354247051-m76epfc3r28r70s2bjkcq5e2sa071lkf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.towghana",
-            "certificate_hash": "aed2ff4d76a523306b4dfb951fe6bc83760a120a"
-          }
-        },
-        {
-          "client_id": "1069354247051-0vd402aagjfukhq3nkkbee2upho9mdc5.apps.googleusercontent.com",
+          "client_id": "367835836700-pkqo3j0ptts1b1kpjcjel624ilipg4h5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBCnEgeIPKCRYxOUiBxJw4cqdaBhAHF7sQ"
+          "current_key": "AIzaSyDwa8K1tbZZtPrZFMpD8VfKX2OXzrFbVoE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1069354247051-0vd402aagjfukhq3nkkbee2upho9mdc5.apps.googleusercontent.com",
+              "client_id": "367835836700-pkqo3j0ptts1b1kpjcjel624ilipg4h5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

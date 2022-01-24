@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 import 'package:towghana/model/user.dart';
-import 'package:towghana/screens/login.dart';
+// import 'package:towghana/screens/login.dart';
+import 'package:towghana/screens/tokenScreen.dart';
 
 late User user;
 
@@ -23,32 +23,31 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final _formKey = GlobalKey<FormState>();
 
   //editing controller
-  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController phoneNumberEditingController =
+      new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final emailField = TextFormField(
+    final phoneNumberField = TextFormField(
         autofocus: false,
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress,
+        controller: phoneNumberEditingController,
+        keyboardType: TextInputType.phone,
         validator: (value) {
+          RegExp regex = new RegExp(r'^.{10,}$');
           if (value!.isEmpty) {
-            return "Please Enter your Email";
+            return "Phone Number required!";
           }
-          //reg expression for email validation
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-              .hasMatch(value)) {
-            return " Please Enter a valid E-mail";
+          if (!regex.hasMatch(value)) {
+            return "Enter a Valid Phone Number ";
           }
-          return null;
         },
         onSaved: (value) {
-          emailController.text = value!;
+          phoneNumberEditingController.text = value!;
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-            prefixIcon: Icon(Icons.mail),
+            prefixIcon: Icon(Icons.phone_android),
             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-            hintText: "Email",
+            hintText: "Phone Number",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10))));
 
@@ -58,12 +57,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         borderRadius: BorderRadius.circular(30),
         child: MaterialButton(
             onPressed: () {
-              forgotPassword(emailController.text);
+              forgotPassword(phoneNumberEditingController.text);
             },
             padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
             minWidth: MediaQuery.of(context).size.width,
             child: processing == false
-                ? Text("Reset Password",
+                ? Text("Submit",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -98,14 +97,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             )),
                         SizedBox(height: 45),
                         Text(
-                          "Enter Email to Recover Password",
+                          "Enter Phone Number to Recover Password",
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                         SizedBox(height: 25),
-                        emailField,
+                        phoneNumberField,
                         SizedBox(height: 25),
                         loginButton,
                         SizedBox(height: 15),
@@ -118,16 +117,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
 //Login Function
-  void forgotPassword(String email) async {
+  void forgotPassword(String phone) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         processing = true;
       });
 
-      var url = Uri.parse('https://towghana.com/tg/api/user/forgotPassword');
+      var url = Uri.parse(
+          'https://towghana.com/tg/api/user/forgotPassword');
 
       var data = {
-        "email": emailController.text,
+        "phone_number": phoneNumberEditingController.text,
       };
       print(data);
       var response = await http.post(url, body: data);
@@ -137,15 +137,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           processing = false;
         });
         Fluttertoast.showToast(
-            msg: 'Reset Password Success', toastLength: Toast.LENGTH_SHORT);
+            msg: 'Token SMS Sent ', toastLength: Toast.LENGTH_SHORT);
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => LoginScreen()));
+            MaterialPageRoute(builder: (context) => TokenScreen()));
       } else {
         setState(() {
           processing = false;
         });
         Fluttertoast.showToast(
-            msg: 'Error Occured!', toastLength: Toast.LENGTH_SHORT);
+            msg: 'Phone Number does not Exist',
+            toastLength: Toast.LENGTH_SHORT);
       }
     }
   }

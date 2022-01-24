@@ -1,4 +1,4 @@
-package com.example.towghana
+package com.towghapp.towghana
 
 import io.flutter.embedding.android.FlutterActivity
 

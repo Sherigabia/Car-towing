@@ -110,11 +110,13 @@ class _SalvageScreenState extends State<SalvageScreen>
 
       longitude = _locationResult.longitude!;
       latitude = _locationResult.latitude!;
+      String requestType = "Salvage Car";
       var data = {
         'userID': user.userId,
         'longitude': longitude.toString(),
         'latitude': latitude.toString(),
-        'address': address
+        'address': address,
+        'request_type': requestType
       };
       var response = await http.post(url, body: data);
       var result = jsonDecode(response.body);
