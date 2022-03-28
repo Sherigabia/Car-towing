@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:towghana/model/user.dart';
 import 'package:towghana/screens/forgotPassword.dart';
 import 'package:towghana/screens/mainPage.dart';
+import 'package:towghana/screens/newMain.dart';
 import 'package:towghana/screens/registration.dart';
 
 late User user;
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                         Navigator.of(context).pop();
                       },
-                      child: Text("Allow"),
+                      child: Text("Continue"),
                     ),
                     TextButton(
                         onPressed: () {
@@ -282,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
             msg: 'Login Successful', toastLength: Toast.LENGTH_SHORT);
 
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => MainPage()));
+            MaterialPageRoute(builder: (context) => NewPage()));
       } else {
         setState(() {
           processing = false;

@@ -25,6 +25,8 @@ String address = '';
 bool updateRequest = false;
 
 class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
+  //form key
+  final _formKey = GlobalKey<FormState>();
   bool requestSent = false;
   bool loading = false;
 
@@ -115,7 +117,8 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
         'longitude': longitude.toString(),
         'latitude': latitude.toString(),
         'address': address,
-        'request_type': requestType
+        'request_type': requestType,
+        'car_type': carTypeController.text
       };
       var response = await http.post(url, body: data);
       var result = jsonDecode(response.body);
@@ -152,6 +155,8 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
           '${place.street} - ${place.subAdministrativeArea} - ${place.locality}';
     });
   }
+
+  final TextEditingController carTypeController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +208,7 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
                             style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0)),
                             onPressed: () {
-                              makeRequestDialog();
+                              carDialog();
                             },
                             icon: Icon(Icons.location_on),
                             label: updateRequest
@@ -249,6 +254,55 @@ class _TowMapState extends State<TowMap> with SingleTickerProviderStateMixin {
                       Navigator.of(context).pop(false);
                     },
                     child: Text("YES"),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: Text("Cancel"))
+                ]));
+  }
+
+  Future carDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+                title: Text(
+                  "Specify Car Type",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                content: Form(
+                  key: _formKey,
+                  child: TextFormField(
+                      autofocus: false,
+                      controller: carTypeController,
+                      keyboardType: TextInputType.multiline,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please specify the car type";
+                        }
+                      },
+                      onSaved: (value) {
+                        carTypeController.text = value!;
+                      },
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.build_circle_sharp),
+                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          hintText: "Car Model",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)))),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.of(context).pop(false);
+                        makeRequestDialog();
+                      }
+                    },
+                    child: Text("Proceed"),
                   ),
                   TextButton(
                       onPressed: () {

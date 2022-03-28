@@ -3,6 +3,7 @@ import 'package:towghana/screens/TowingMap.dart';
 
 import 'package:towghana/screens/login.dart';
 import 'package:towghana/screens/mainPage.dart';
+import 'package:towghana/screens/newMain.dart';
 
 import 'package:towghana/screens/salvage.dart';
 
@@ -177,7 +178,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     switch (index) {
       case 0:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => MainPage()));
+            .push(MaterialPageRoute(builder: (context) => NewPage()));
         break;
       case 1:
         Navigator.of(context)

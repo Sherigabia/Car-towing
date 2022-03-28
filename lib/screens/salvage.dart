@@ -31,6 +31,9 @@ class _SalvageScreenState extends State<SalvageScreen>
 
   bool cancelRequest = true;
 
+  //form key
+  final _formKey = GlobalKey<FormState>();
+
   static const double fabHeightClosed = 116.0;
   double fabHeight = fabHeightClosed;
   late AnimationController controller;
@@ -116,7 +119,8 @@ class _SalvageScreenState extends State<SalvageScreen>
         'longitude': longitude.toString(),
         'latitude': latitude.toString(),
         'address': address,
-        'request_type': requestType
+        'request_type': requestType,
+        'car_type': carTypeController.text
       };
       var response = await http.post(url, body: data);
       var result = jsonDecode(response.body);
@@ -153,6 +157,8 @@ class _SalvageScreenState extends State<SalvageScreen>
           '${place.street} - ${place.subAdministrativeArea} - ${place.locality}';
     });
   }
+
+  final TextEditingController carTypeController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +210,7 @@ class _SalvageScreenState extends State<SalvageScreen>
                             style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0)),
                             onPressed: () {
-                              makeRequestDialog();
+                              carDialog();
                             },
                             icon: Icon(Icons.location_on),
                             label: updateRequest
@@ -250,6 +256,55 @@ class _SalvageScreenState extends State<SalvageScreen>
                       Navigator.of(context).pop(false);
                     },
                     child: Text("YES"),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: Text("Cancel"))
+                ]));
+  }
+
+  Future carDialog() {
+    return showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+                title: Text(
+                  "Specify Car Type",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                content: Form(
+                  key: _formKey,
+                  child: TextFormField(
+                      autofocus: false,
+                      controller: carTypeController,
+                      keyboardType: TextInputType.multiline,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please specify the car type";
+                        }
+                      },
+                      onSaved: (value) {
+                        carTypeController.text = value!;
+                      },
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.build_circle_sharp),
+                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          hintText: "Car Model",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)))),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.of(context).pop(false);
+                        makeRequestDialog();
+                      }
+                    },
+                    child: Text("Proceed"),
                   ),
                   TextButton(
                       onPressed: () {
