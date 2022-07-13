@@ -123,10 +123,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         validator: (value) {
           RegExp regex = new RegExp(r'^.{10,}$');
           if (value!.isEmpty) {
-            return "Phone Number required!";
+            return "Phone number is required!";
           }
           if (!regex.hasMatch(value)) {
-            return "Enter a Valid Phone Number ";
+            return "Enter a valid Phone Number ";
           }
         },
         onSaved: (value) {
